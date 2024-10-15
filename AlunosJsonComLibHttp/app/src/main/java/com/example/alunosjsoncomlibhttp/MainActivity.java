@@ -1,5 +1,6 @@
 package com.example.alunosjsoncomlibhttp;
 
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -7,11 +8,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,22 +27,19 @@ public class MainActivity extends AppCompatActivity {
 
     private Alunos dadosBaixados;
 
-    private TextView textView;
+    private TextView textView, textIdade;
     private List<Aluno> alunosAprovados;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
 
         textView = findViewById(R.id.dadosID);
+        textIdade = findViewById(R.id.mediaIdade);
+
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -56,9 +50,8 @@ public class MainActivity extends AppCompatActivity {
                 String textoJSON = auxilia.converter(inputStream);
                 Log.i("JSON", "doInBackground: " + textoJSON);
                 Gson gson = new Gson();
-                //builder = new StringBuilder();
                 if (textoJSON != null) {
-                    Type type = new TypeToken<Aluno>() {
+                    Type type = new TypeToken<Alunos>() {
                     }.getType();
                     dadosBaixados = gson.fromJson(textoJSON, type);
 
@@ -75,9 +68,14 @@ public class MainActivity extends AppCompatActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        //textViewID.setText(dadosBaixados.toString());
                         alunosAprovados = new ArrayList<>();
 
+                        Float media = 0.00F;
+                        for (Aluno aluno : dadosBaixados.getAlunos()) {
+                            media += aluno.getIdade();
+                        }
+                        media = media / dadosBaixados.getAlunos().size();
+                        textIdade.setText("media: " + media);
                         for (Aluno aluno : dadosBaixados.getAlunos()) {
                             if ((aluno.getFrequencia() > 7) && (aluno.getMedia() >= 6)) {
                                 alunosAprovados.add(aluno);
@@ -88,6 +86,5 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-
-    }
-}
+    }//onCreate
+}//class
