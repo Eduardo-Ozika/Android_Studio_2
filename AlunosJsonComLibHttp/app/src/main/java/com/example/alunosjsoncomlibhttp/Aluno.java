@@ -61,12 +61,30 @@ public class Aluno {
         this.notas = notas;
     }
 
-    public List<Integer> getFrequencia() {
-        return frequencia;
+    public int getFrequencia() {
+        int frequenciaAluno = 0;
+        for (Integer i : frequencia) {
+            frequenciaAluno += i;
+        }
+        return frequenciaAluno;
+    }
+
+    public Float getMedia(){
+        Float media = 0.00F;
+        for (Float nota : notas) {
+            media =+ nota;
+        }
+        return media/3;
     }
 
     public void setFrequencia(List<Integer> frequencia) {
         this.frequencia = frequencia;
     }
 
+    @Override
+    public String toString() {
+        return "Aluno{" +
+                "nome='" + nome + '\'' +
+                "}\n";
+    }
 }

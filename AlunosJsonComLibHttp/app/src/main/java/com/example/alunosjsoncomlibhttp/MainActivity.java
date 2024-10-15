@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -18,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -26,11 +28,10 @@ public class MainActivity extends AppCompatActivity {
     Handler handler = new Handler(Looper.getMainLooper());
     private final String URL = "https://my-json-server.typicode.com/Eduardo-Ozika/Android_Studio_2/db";
 
-    private Aluno dadosBaixados;
+    private Alunos dadosBaixados;
 
-
-    private ArrayList<Aluno> alunos;
-
+    private TextView textView;
+    private List<Aluno> alunosAprovados;
 
 
     @Override
@@ -42,54 +43,51 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
+        });
 
-                    Conexao conexao = new Conexao();
-                    InputStream inputStream = conexao.obterRespostaHTTP(URL);
-                    Auxilia auxilia = new Auxilia();
-                    String textoJSON = auxilia.converter(inputStream);
-                    Log.i("JSON", "doInBackground: " + textoJSON);
-                    Gson gson = new Gson();
-                    //builder = new StringBuilder();
-                    if (textoJSON != null) {
-                        Type type = new TypeToken<Aluno>() {
-                        }.getType();
-                        dadosBaixados = gson.fromJson(textoJSON, type);
+        textView = findViewById(R.id.dadosID);
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+
+                Conexao conexao = new Conexao();
+                InputStream inputStream = conexao.obterRespostaHTTP(URL);
+                Auxilia auxilia = new Auxilia();
+                String textoJSON = auxilia.converter(inputStream);
+                Log.i("JSON", "doInBackground: " + textoJSON);
+                Gson gson = new Gson();
+                //builder = new StringBuilder();
+                if (textoJSON != null) {
+                    Type type = new TypeToken<Aluno>() {
+                    }.getType();
+                    dadosBaixados = gson.fromJson(textoJSON, type);
 
 
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(), "Não foi possível obter JSON", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }//if else
-
-                    handler.post(new Runnable() {
+                } else {
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //textViewID.setText(dadosBaixados.toString());
-                            alunos = new ArrayList<>();
-                            for (Aluno agenda : dadosBaixados.) {
-                                agendas.add(agenda);
-                            }
-                            adapterAgenda = new MyAdapterAgenda(MainActivity.this, agendas);
-
-                            adicionais = new ArrayList<>();
-                            for (Adicional adicional : dadosBaixados.getAdicionais()) {
-                                adicionais.add(adicional);
-                            }
-                            adapterAdicional = new MyAdapterAdicional(MainActivity.this, adicionais);
-
-                            listView.setAdapter(adapterAgenda);
-                            listView2.setAdapter(adapterAdicional);
+                            Toast.makeText(getApplicationContext(), "Não foi possível obter JSON", Toast.LENGTH_SHORT).show();
                         }
                     });
-                }
-            });
+                }//if else
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //textViewID.setText(dadosBaixados.toString());
+                        alunosAprovados = new ArrayList<>();
+
+                        for (Aluno aluno : dadosBaixados.getAlunos()) {
+                            if ((aluno.getFrequencia() > 7) && (aluno.getMedia() >= 6)) {
+                                alunosAprovados.add(aluno);
+                            }
+                        }
+                        textView.setText(alunosAprovados.toString());
+                    }
+                });
+            }
         });
+
     }
 }

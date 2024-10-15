@@ -33,4 +33,10 @@ public class Alunos {
         this.alunos = alunos;
     }
 
+    @Override
+    public String toString() {
+        return "Alunos{" +
+                "alunos=" + alunos +
+                '}';
+    }
 }
