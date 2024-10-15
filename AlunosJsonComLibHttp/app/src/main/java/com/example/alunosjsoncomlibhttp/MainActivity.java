@@ -12,7 +12,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,7 +24,12 @@ import java.util.concurrent.Executors;
 public class MainActivity extends AppCompatActivity {
     ExecutorService executor = Executors.newSingleThreadExecutor();
     Handler handler = new Handler(Looper.getMainLooper());
-    private final String URL = "https://my-json-server.typicode.com/Eduardo-Ozika/Android_Studio/db";
+    private final String URL = "https://my-json-server.typicode.com/Eduardo-Ozika/Android_Studio_2/db";
+
+    private Aluno dadosBaixados;
+
+
+    private ArrayList<Aluno> alunos;
 
 
 
@@ -43,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
                     String textoJSON = auxilia.converter(inputStream);
                     Log.i("JSON", "doInBackground: " + textoJSON);
                     Gson gson = new Gson();
-                    builder = new StringBuilder();
+                    //builder = new StringBuilder();
                     if (textoJSON != null) {
-                        Type type = new TypeToken<Contato>() {
+                        Type type = new TypeToken<Aluno>() {
                         }.getType();
                         dadosBaixados = gson.fromJson(textoJSON, type);
 
@@ -63,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             //textViewID.setText(dadosBaixados.toString());
-                            agendas = new ArrayList<>();
-                            for (Agenda agenda : dadosBaixados.getAgenda()) {
+                            alunos = new ArrayList<>();
+                            for (Aluno agenda : dadosBaixados.) {
                                 agendas.add(agenda);
                             }
                             adapterAgenda = new MyAdapterAgenda(MainActivity.this, agendas);
