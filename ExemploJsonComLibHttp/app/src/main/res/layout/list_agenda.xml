@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/blue"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/agendaid"
+        android:layout_height="wrap_content"
+        android:text="ID:" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/agendanome"
+        android:text="nome:" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/agendatelefone"
+        android:text="telefone:" />
+</LinearLayout>

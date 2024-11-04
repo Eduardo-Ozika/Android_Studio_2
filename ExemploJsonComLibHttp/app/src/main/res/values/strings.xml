@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ExemploJsonComLibHttp</string>
+    <string name="agenda">Agenda</string>
+    <string name="adicional">Adicional</string>
+</resources>
