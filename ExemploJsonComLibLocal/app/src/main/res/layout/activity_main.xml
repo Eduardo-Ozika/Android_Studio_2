@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".MainActivity" >
+    <EditText
+        android:id="@+id/editTextNome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite seu Nome" />
+    <EditText
+        android:id="@+id/editTextDisciplina"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite o nome da Disciplina" />
+    <EditText
+        android:id="@+id/editTextNota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite a Nota" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <Button
+                android:id="@+id/buttonAdicionar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="criarLista"
+                android:layout_weight="1"
+                android:text="A" />
+            <Button
+                android:id="@+id/buttonGerar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="gerarJSON"
+                android:layout_weight="1"
+                android:text="G" />
+            <Button
+                android:id="@+id/buttonConsumir"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="abrirTela"
+                android:layout_weight="1"
+                android:text="C" />
+        </TableRow>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/textViewResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resultado" />
+</LinearLayout>
