@@ -72,7 +72,7 @@ public class Aluno {
     public Float getMedia(){
         Float media = 0.00F;
         for (Float nota : notas) {
-            media =+ nota;
+            media += nota;
         }
         return media/3;
     }
@@ -83,8 +83,8 @@ public class Aluno {
 
     @Override
     public String toString() {
-        return "Aluno{" +
-                "nome='" + nome + '\'' +
-                "}\n";
+        return "\nAluno{" +
+                "\nnome='" + nome + '\'' +
+                "\n}\n";
     }
 }

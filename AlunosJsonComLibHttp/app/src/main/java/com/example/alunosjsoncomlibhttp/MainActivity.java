@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView textView, textIdade;
     private List<Aluno> alunosAprovados;
+    private MyAdapterAluno adapterAluno;
+    private ListView listView;
+
 
 
     @Override
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.dadosID);
         textIdade = findViewById(R.id.mediaIdade);
+        listView = findViewById(R.id.list_view);
 
         executor.execute(new Runnable() {
             @Override
@@ -76,11 +81,12 @@ public class MainActivity extends AppCompatActivity {
                         media = media / dadosBaixados.getAlunos().size();
                         textIdade.setText("media: " + media);
                         for (Aluno aluno : dadosBaixados.getAlunos()) {
-                            if ((aluno.getFrequencia() > 7) && (aluno.getMedia() >= 6)) {
+                            if ((aluno.getFrequencia() >= 7) && (aluno.getMedia() >= 6)) {
                                 alunosAprovados.add(aluno);
                             }
                         }
-                        textView.setText(alunosAprovados.toString());
+                        adapterAluno = new MyAdapterAluno(MainActivity.this, (ArrayList<Aluno>) alunosAprovados);
+                        listView.setAdapter(adapterAluno);
                     }
                 });
             }
