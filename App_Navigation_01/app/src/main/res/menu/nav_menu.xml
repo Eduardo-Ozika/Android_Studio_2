@@ -2,11 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_flamengo"
+        android:icon="@drawable/bola"
         android:title="Flamengo" />
     <item
         android:id="@+id/nav_corinthians"
+        android:icon="@drawable/trofeu"
         android:title="Corinthians" />
     <item
         android:id="@+id/nav_goias"
+        android:icon="@drawable/trofeu"
         android:title="Goiás" />
 </menu>
