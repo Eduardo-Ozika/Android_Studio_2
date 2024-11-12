@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageViewCamera;
     private static final int REQUEST_CAMERA = 1;
     private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
+    private boolean permissionDenied = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clicar() {
-        solicitarPermissao();
+        //solicitarPermissao();
+        habilitarPermissao();
     }
 
     private void solicitarPermissao() {
@@ -55,6 +57,14 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(capturaImagem, REQUEST_CAMERA);
     }
 
+    private void habilitarPermissao(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+            abrirCamera();
+        }
+        PermissionUtils.requestLocationPermissions(this, REQUEST_CAMERA, true);
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode == REQUEST_CAMERA && resultCode == RESULT_OK) {
@@ -69,41 +79,69 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode != REQUEST_CAMERA){
+        if (requestCode != REQUEST_CAMERA) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }else {
-            if (grantResults.length > 0 ) {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    abrirCamera();
-                }else {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISSION_CAMERA)) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        builder.setTitle("Permissão necessária")
-                                .setMessage("É necessário a permissão da câmera para utilizar essa funcionalidade")
-                                .setCancelable(false)
-                                .setPositiveButton("SIM", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{PERMISSION_CAMERA}, REQUEST_CAMERA);
-                                    }
-                                })
-                                .setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Toast.makeText(MainActivity.this, "Precisa da permissão para funcionar... ADEUS ...", Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    }
-                                });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                    } else {
-                        finish();
-                    }
-                }
-            }
-            else {
-                finish();
-            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (PermissionUtils.isPermissionGranted(permissions, grantResults, PERMISSION_CAMERA)) {
+            abrirCamera();
+        } else {
+            permissionDenied = true;
         }
     }
+
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        if (permissionDenied) {
+            showMissingPermissionError();
+            permissionDenied = false;
+        }
+    }
+
+    private void showMissingPermissionError() {
+        PermissionUtils.PermissionDeniedDialog.newInstance(true)
+                .show(getSupportFragmentManager(), "dialog");
+    }
+
+    //    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        if (requestCode != REQUEST_CAMERA){
+//            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        }else {
+//            if (grantResults.length > 0 ) {
+//                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    abrirCamera();
+//                }else {
+//                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISSION_CAMERA)) {
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                        builder.setTitle("Permissão necessária")
+//                                .setMessage("É necessário a permissão da câmera para utilizar essa funcionalidade")
+//                                .setCancelable(false)
+//                                .setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{PERMISSION_CAMERA}, REQUEST_CAMERA);
+//                                    }
+//                                })
+//                                .setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        Toast.makeText(MainActivity.this, "Precisa da permissão para funcionar... ADEUS ...", Toast.LENGTH_SHORT).show();
+//                                        finish();
+//                                    }
+//                                });
+//                        AlertDialog dialog = builder.create();
+//                        dialog.show();
+//                    } else {
+//                        finish();
+//                    }
+//                }
+//            }
+//            else {
+//                finish();
+//            }
+//        }
+//    }
 }
