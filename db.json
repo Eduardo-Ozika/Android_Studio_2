@@ -1,34 +1,65 @@
 {
   "alunos": [
     {
-      "nome": "Ana Silva",
+      "nome": "João",
       "idade": 20,
-      "notas": [8.5, 7.0, 9.2],
-      "frequencia": [1, 1, 1, 0, 1, 1, 1, 1, 0, 1]
+      "notas": [7.5, 8.0, 6.5],
+      "frequencia": [1, 0, 1, 1, 0]
     },
     {
-      "nome": "Bruno Souza",
+      "nome": "Maria",
       "idade": 22,
-      "notas": [6.0, 8.1, 7.3],
-      "frequencia": [1, 0, 1, 1, 1, 1, 0, 1, 1, 1]
+      "notas": [9.0, 8.5, 7.0],
+      "frequencia": [1, 1, 1, 0, 1]
     },
     {
-      "nome": "Carla Pereira",
+      "nome": "Pedro",
       "idade": 19,
-      "notas": [9.0, 8.8, 9.5],
-      "frequencia": [1, 1, 1, 1, 1, 1, 1, 1, 0, 0]
+      "notas": [6.0, 7.0, 8.5],
+      "frequencia": [0, 1, 1, 0, 1]
     },
     {
-      "nome": "Daniel Oliveira",
+      "nome": "Ana",
       "idade": 21,
-      "notas": [7.5, 6.8, 7.0],
-      "frequencia": [0, 1, 1, 1, 0, 1, 1, 1, 1, 1]
+      "notas": [8.0, 9.0, 8.5],
+      "frequencia": [1, 1, 1, 1, 1]
     },
     {
-      "nome": "Eduarda Martins",
+      "nome": "Lucas",
       "idade": 23,
-      "notas": [8.0, 7.7, 8.9],
-      "frequencia": [1, 1, 0, 1, 1, 1, 0, 1, 1, 1]
+      "notas": [7.0, 6.5, 7.5],
+      "frequencia": [0, 0, 1, 1, 1]
+    },
+    {
+      "nome": "Carla",
+      "idade": 24,
+      "notas": [8.5, 7.5, 9.0],
+      "frequencia": [1, 1, 1, 0, 1]
+    },
+    {
+      "nome": "Rafael",
+      "idade": 20,
+      "notas": [6.5, 7.0, 8.0],
+      "frequencia": [0, 1, 1, 1, 0]
+    },
+    {
+      "nome": "Gabriel",
+      "idade": 26,
+      "notas": [7.0, 8.5, 7.5],
+      "frequencia": [1, 1, 0, 1, 1]
+    },
+    {
+      "nome": "Beatriz",
+      "idade": 18,
+      "notas": [9.5, 9.0, 8.5],
+      "frequencia": [1, 1, 1, 1, 1]
+    },
+    {
+      "nome": "Felipe",
+      "idade": 23,
+      "notas": [6.5, 7.0, 6.0],
+      "frequencia": [0, 1, 1, 0, 1]
     }
   ]
 }
+
